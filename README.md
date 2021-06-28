@@ -16,4 +16,4 @@ mvn test
 
 ### View Report
 
-Go to 
+Go to project direcory->Report->Adidas Suite and open 'com.auto.tests.html' to see the test results of last run.
