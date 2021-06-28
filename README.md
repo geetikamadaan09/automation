@@ -7,7 +7,8 @@
 2. Project Dependencies
     * clone the repository
 
-### Running Tests, It will download all the dependecies and run the tests .
+### Running Tests 
 
 ```    
+On command prompt, go to project direcory where pom.xml is located and run the following command:
 $ mvn test 
