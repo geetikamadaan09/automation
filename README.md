@@ -9,6 +9,6 @@
 
 ### Running Tests 
 
-```    
 On command prompt, go to project direcory where pom.xml is located and run the following command:
+```    
 $ mvn test 
