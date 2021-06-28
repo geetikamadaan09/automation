@@ -47,12 +47,12 @@
 					<version>3.0.0-M5</version>
 					<configuration>
 						<suiteXmlFiles>
+						   <!-- can be paramterized $suiteFile and run command mvn test -DsuiteFile testng.xml  -->
 							<suiteXmlFile>testng.xml</suiteXmlFile>
 						</suiteXmlFiles>
 						<reportsDirectory>Report</reportsDirectory>
 					</configuration>
 				</plugin>
-
 
 			</plugins>
 		</pluginManagement>

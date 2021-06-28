@@ -11,6 +11,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import com.auto.pagefactory.HomePageFactory;
+import com.auto.pagefactory.LoginPageFactory;
 import com.auto.utils.TestDataUtils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -23,6 +25,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class AdidasLogin {
 	public WebDriver driver;
 	private String baseUrl;
+	HomePageFactory objHome;
+	LoginPageFactory objLogin;
 	
 	
 	
@@ -43,23 +47,22 @@ public class AdidasLogin {
 		
 	@Test
 	public void adidasLogin() throws Exception {
-		String expectedWelcomeText = "HI GEETIKA";
+		String expectedWelcomeText = "HI GEETIKA";	
 		
-		WebElement login = driver.findElement(By.xpath("//a[text()='Log in']"));
-		login.click();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		WebElement email = driver.findElement(By.id("login-email"));
-		WebElement password = driver.findElement(By.id("login-password"));
-		email.sendKeys(TestDataUtils.getUserName());
-		password.sendKeys(TestDataUtils.getPassword());
-		WebElement loginButton = driver.findElement(By.xpath("//span[text()='Log in']"));
-		loginButton.click();
+		objHome = new HomePageFactory(driver);
+		objHome.clickLoginLink();
+		objLogin = new LoginPageFactory(driver);
+		objLogin.setUserName(TestDataUtils.getUserName());
+		objLogin.setPassword(TestDataUtils.getPassword());
+		objLogin.clickLoginButton();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		WebElement salutation = driver.findElement(By.xpath("//h3[text()='Hi Geetika']"));
-
 		Assert.assertEquals(salutation.getText(), expectedWelcomeText);		
-
 	}
 	
-	
+	/*@AfterClass(alwaysRun = true)
+	public void exit() throws Exception {
+		driver.quit();
+	}
+	*/
 }

@@ -5,9 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.auto.pagefactory.HomePageFactory;
 import com.auto.utils.TestDataUtils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -20,6 +22,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class AdidasSearch {
 	public WebDriver driver;
 	private String baseUrl;
+	HomePageFactory objHome;
 	
 	@BeforeClass(alwaysRun = true)
 	public void setUp() throws Exception {
@@ -34,14 +37,20 @@ public class AdidasSearch {
 	@Test
 	public void adidasSearch() throws Exception {
 		String expectedSearchHeading = "Casual & Sport Socks";
-	
-		WebElement searchText = driver.findElement(By.name("q"));
-		searchText.sendKeys(TestDataUtils.getSearchTerm());
-		searchText.submit();
+		
+		objHome = new HomePageFactory(driver);
+		objHome.clickLoginLink();
+		objHome.searchItems(TestDataUtils.getSearchTerm());
 		WebElement socksSearchHeading = driver.findElement(By.xpath("//span[text()='Casual & Sport Socks']"));
 		String actual = socksSearchHeading.getText();
 		// Ignoring Case sensitivity 
 		Assert.assertEquals(actual.toLowerCase(), expectedSearchHeading.toLowerCase());		
 	}
+	
+	/*@AfterClass(alwaysRun = true)
+	public void exit() throws Exception {
+		driver.quit();
+	}
+	*/
 	
 }
