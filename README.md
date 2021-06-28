@@ -9,6 +9,4 @@
 
 ### Running Tests, It will download all the dependecies and run the tests .
 
-```
-To run single test
-    $ mvn test 
+```    $ mvn test 
