@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Adidas Suite" verbose="1">
 	
-	<test name="com-auto-tests" parallel="classes" >
+	<test name="com-auto-tests"  >
 		<packages>
 			<package name="com.auto.tests.*"></package>
 		</packages>
