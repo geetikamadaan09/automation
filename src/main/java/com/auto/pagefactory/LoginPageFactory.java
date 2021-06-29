@@ -15,8 +15,6 @@ package com.auto.pagefactory;
  */
 	public class LoginPageFactory {
 
-		WebDriver driver;
-
 		@FindBy(id = "login-email")
 		WebElement loginEmail;
 

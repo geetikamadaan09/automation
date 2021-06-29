@@ -16,8 +16,6 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class HomePageFactory {
 
-	WebDriver driver;
-
 	@FindBy(xpath ="//a[text()='Log in']")
 	WebElement login;
 

@@ -39,7 +39,6 @@ public class AdidasSearch {
 		String expectedSearchHeading = "Casual & Sport Socks";
 		
 		objHome = new HomePageFactory(driver);
-		objHome.clickLoginLink();
 		objHome.searchItems(TestDataUtils.getSearchTerm());
 		WebElement socksSearchHeading = driver.findElement(By.xpath("//span[text()='Casual & Sport Socks']"));
 		String actual = socksSearchHeading.getText();
