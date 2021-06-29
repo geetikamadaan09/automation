@@ -21,6 +21,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  */
 public class AdidasNavigate {
 	public WebDriver driver;
+	private ThreadLocal<WebDriver> tsDriver = new ThreadLocal<WebDriver>() ;
 	private String baseUrl;
 	HomePageFactory objHome;
 	
@@ -31,24 +32,25 @@ public class AdidasNavigate {
 		baseUrl = TestDataUtils.getBaseURL();
 		driver.manage().window().maximize();
 		driver.get(baseUrl);
+		tsDriver.set(driver);
 	}
 	
 	@Test
 	public void adidasNavigate() throws Exception {
 		String expectedTitle = "adidas Online Shop | adidas AU";
 		
-		objHome = new HomePageFactory(driver);
+		objHome = new HomePageFactory(tsDriver.get());
 		objHome.clickLoginLink();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		//Verify the new page title after navigating
-		String actualTitle = driver.getTitle();
+		String actualTitle = tsDriver.get().getTitle();
 		Assert.assertEquals(actualTitle, expectedTitle);
 	}
 	
 	
 	@AfterClass(alwaysRun = true)
 	public void exit() throws Exception {
-		driver.quit();
+		tsDriver.get().quit();
 	}
 	
 }

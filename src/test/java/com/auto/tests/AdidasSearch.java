@@ -21,6 +21,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  */
 public class AdidasSearch {
 	public WebDriver driver;
+	private ThreadLocal<WebDriver> tsDriver = new ThreadLocal<WebDriver>() ;
 	private String baseUrl;
 	HomePageFactory objHome;
 	
@@ -31,6 +32,7 @@ public class AdidasSearch {
 		baseUrl = TestDataUtils.getBaseURL();
 		driver.manage().window().maximize();
 		driver.get(baseUrl);
+		tsDriver.set(driver);
 	}
 	
 
@@ -38,9 +40,9 @@ public class AdidasSearch {
 	public void adidasSearch() throws Exception {
 		String expectedSearchHeading = "Casual & Sport Socks";
 		
-		objHome = new HomePageFactory(driver);
+		objHome = new HomePageFactory(tsDriver.get());
 		objHome.searchItems(TestDataUtils.getSearchTerm());
-		WebElement socksSearchHeading = driver.findElement(By.xpath("//span[text()='Casual & Sport Socks']"));
+		WebElement socksSearchHeading = tsDriver.get().findElement(By.xpath("//span[text()='Casual & Sport Socks']"));
 		String actual = socksSearchHeading.getText();
 		// Ignoring Case sensitivity 
 		Assert.assertEquals(actual.toLowerCase(), expectedSearchHeading.toLowerCase());		

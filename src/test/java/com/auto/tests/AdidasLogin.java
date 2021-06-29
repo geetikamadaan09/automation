@@ -23,7 +23,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  *
  */
 public class AdidasLogin {
-	public WebDriver driver;
+	private ThreadLocal<WebDriver> tsDriver = new ThreadLocal<WebDriver>() ;
+	private WebDriver driver ;
+
 	private String baseUrl;
 	HomePageFactory objHome;
 	LoginPageFactory objLogin;
@@ -42,6 +44,9 @@ public class AdidasLogin {
 		baseUrl = TestDataUtils.getBaseURL();
 		driver.manage().window().maximize();
 		driver.get(baseUrl);
+		tsDriver.set(driver);
+		tsDriver.get().get(baseUrl);
+
 	}
 	
 		
@@ -49,14 +54,14 @@ public class AdidasLogin {
 	public void adidasLogin() throws Exception {
 		String expectedWelcomeText = "HI GEETIKA";	
 		
-		objHome = new HomePageFactory(driver);
+		objHome = new HomePageFactory(tsDriver.get());
 		objHome.clickLoginLink();
-		objLogin = new LoginPageFactory(driver);
+		objLogin = new LoginPageFactory(tsDriver.get());
 		objLogin.setUserName(TestDataUtils.getUserName());
 		objLogin.setPassword(TestDataUtils.getPassword());
 		objLogin.clickLoginButton();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		WebElement salutation = driver.findElement(By.xpath("//h3[text()='Hi Geetika']"));
+		WebElement salutation = tsDriver.get().findElement(By.xpath("//h3[text()='Hi Geetika']"));
 		Assert.assertEquals(salutation.getText(), expectedWelcomeText);		
 	}
 	
